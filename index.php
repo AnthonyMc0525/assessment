@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <?php
 session_start();
-setcookie("NumsVisits", 0, time() + 3600);
 include_once "db.php";
+$numsvisits;
+if(!isset($_COOKIE["NumsVisits"])){
+  setcookie("NumsVisits", 0, time() + 3600, '/');
+  $numsvisits = 0;
+} else{
+  $numsvisits = $_COOKIE["NumsVisits"] + 1;
+  setcookie("NumsVisits", $numsvisits, time() + 3600, '/');
+}
 ?>
 <html>
   <head>
@@ -25,28 +32,24 @@ include_once "db.php";
 
   echo "A random number: <b>" . rand(0, 1000) . "</b><br><br>";
 
-  $numvisits = $_COOKIE["NumsVisits"];
-  echo $_COOKIE["NumsVisits"] . "<br><br>";
-  if($_COOKIE["NumsVisits"] == 0){
-    setcookie("NumsVisits", $_COOKIE["NumsVisits"] + 1, + 3600);
-    echo "Welcome! This is the first time you are visiting this Web page.";
-  } else {
-    setcookie("NumsVisits", $_COOKIE["NumsVisits"] + 1, + 3600);
-    echo "You have visited this Web page " . $_COOKIE["NumsVisits"] . " ";
-    if($numsvisited == 1){
-      echo "time before! <br><br>";
-    } else {
-      echo "times before! <br><br>";
-    }
-  }
+
 
 ?>
 
 <?php
 $df = disk_free_space("/");
 echo "<br><br>Available Space in bytes: " . $df;
-echo "<br><br>" . session_id() . " is your sessionid";
-
+echo "<br><br>" . session_id() . " is your sessionid<br><br>";
+if($numsvisits == 0){
+  echo "Welcome! This is the first time you are visiting this Web page.";
+} else {
+    echo "You have visited this Web page " . $numsvisits . " ";
+    if($numsvisits == 1){
+      echo "time before! <br><br>";
+    } else {
+      echo "times before! <br><br>";
+    }
+}
 ?>
 
     <table border=1>
