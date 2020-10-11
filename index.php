@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <?php
-session_start();
 include_once "db.php";
+
+ini_set('session.gc_maxlifetime', 3600);
+session_set_cookie_params(3600);
+session_start();
+
 $numsvisits;
 if(!isset($_COOKIE["NumsVisits"])){
   setcookie("NumsVisits", 0, time() + 3600, '/');
@@ -31,15 +35,16 @@ if(!isset($_COOKIE["NumsVisits"])){
   echo "and the month is " . date("F") . "<br><br>";
 
   echo "A random number: <b>" . rand(0, 1000) . "</b><br><br>";
+  echo "Default Timeout is: 24 minutes.<br><br>";
+  echo "Timeout is now: 1 hour.<br><br>";
 
 
 
 ?>
 
 <?php
-$df = disk_free_space("/");
-echo "<br><br>Available Space in bytes: " . $df;
-echo "<br><br>" . session_id() . " is your sessionid<br><br>";
+$root;
+$df;
 if($numsvisits == 0){
   echo "Welcome! This is the first time you are visiting this Web page.";
 } else {
@@ -50,6 +55,19 @@ if($numsvisits == 0){
       echo "times before! <br><br>";
     }
 }
+if (DIRECTORY_SEPARATOR === '/') {
+  $root = "/";
+  $df = disk_free_space($root);
+}
+
+if (DIRECTORY_SEPARATOR === '\\') {
+  $root = "C:\\\\";
+  $df = disk_free_space($root);
+}
+
+echo "<br><br> Drive: " . $root;
+echo "<br><br>Available Space in bytes: " . $df;
+echo "<br><br>" . session_id() . " is your sessionid<br><br>";
 ?>
 
     <table border=1>
