@@ -1,9 +1,60 @@
 table {
   position: absolute;
-  right: 5%;
-  top: 5%;
+  right: 40%;
+  top: 10%;
 }
 
 td.header {
   font-weight: bold;
+}
+
+nav {
+  width: 100%;
+  background-color: darkslategray;
+}
+
+nav>ul {
+  padding: 1vh;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+nav>ul>li {
+  display: inline-block;
+  list-style: none;
+  font-size: 1.5em;
+}
+
+nav>ul>li>a {
+  color: snow;
+}
+
+nav>ul>li>a:link {
+  color: snow;
+  text-decoration: none;
+}
+
+nav>ul>li>a:hover {
+  color: snow;
+  text-decoration: underline;
+}
+
+nav>ul>li>a:active {
+  color: snow;
+  text-decoration: underline;
+}
+
+p {
+  width: 60%;
+}
+
+main.index-main > p {
+  font-size: 1.2em;
+}
+
+main {
+  font-size: 1.2em;
+  margin-left: 33%;
 }
